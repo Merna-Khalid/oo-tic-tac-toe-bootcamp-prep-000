@@ -26,4 +26,81 @@ class TicTacToe
     puts "-----------"
     puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
   end
+  def input_to_index(user_input)
+    user_input.to_i - 1
+  end
+  def move(index, current_player)
+    @board[index] = current_player
+  end
+  def position_taken?(location)
+    @board[location] != " " && @board[location] != ""
+  end
+  def valid_move?(index)
+    index.between?(0,8) && !position_taken?(@board, index)
+  end
+  def check(board, token='X')
+    return state = WIN_COMBINATIONS.detect do |one_state|
+      one_state.all? { |i| board[i] == token}
+    end
+  end
+
+def won?(board)
+  x_state = check(board, 'X')
+  o_state = check(board, 'O')
+  if x_state != nil
+    return x_state
+  elsif o_state != nil
+    return o_state
+  end
+  return false
+end
+
+def full?(board)
+  empty = board.detect do |cell|
+    cell == " " || cell == nil
+  end
+  if empty == nil
+    return true
+  end
+  false
+end
+
+def draw?(board)
+  if won?(board)
+    return false
+  elsif full?(board)
+    return true
+  end
+  false
+end
+
+def over?(board)
+  if won?(board)
+    return true
+  elsif draw?(board)
+    return true
+  end
+  false
+end
+
+def winner(board)
+  if check(board, 'X')
+    return 'X'
+  elsif check(board, 'O')
+    return 'O'
+  end
+  nil
+end
+
+def turn(board)
+  puts "Please enter 1-9:"
+  input = gets.strip
+  index = input_to_index(input)
+  if valid_move?(board, index)
+    move(board, index, current_player(board))
+    display_board(board)
+  else
+    turn(board)
+  end
+end
 end
