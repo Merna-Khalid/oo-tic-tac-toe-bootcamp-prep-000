@@ -112,4 +112,19 @@ class TicTacToe
       turn
     end
   end
+
+  def play
+    until over?
+      turn
+    end
+    if won?
+      if winner == 'X'
+        puts "Congratulations X!"
+      else
+        puts "Congratulations O!"
+      end
+    else
+      puts "Cat's Game!"
+    end
+  end
 end
