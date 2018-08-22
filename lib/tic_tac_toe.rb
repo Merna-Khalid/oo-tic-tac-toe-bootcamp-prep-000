@@ -10,19 +10,19 @@ class TicTacToe
     [0, 4, 8],
     [2, 4, 6]
   ]
-  
+
   def initialize(board=nil)
     @board = board || Array.new(9, " ")
   end
-  
+
   def turn_count
     @board.count { |cell| cell == 'X' || cell == 'O'}
   end
-  
+
   def current_player
     turn_count % 2 == 0 ? "X" : "O"
   end
-  
+
   def display_board
     puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
     puts "-----------"
@@ -30,32 +30,32 @@ class TicTacToe
     puts "-----------"
     puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
   end
-  
+
   def input_to_index(user_input)
     user_input.to_i - 1
   end
-  
+
   def move(index, current_player)
     @board[index] = current_player
   end
-  
+
   def position_taken?(location)
     @board[location] != " " && @board[location] != ""
   end
-  
+
   def valid_move?(index)
     index.between?(0,8) && !position_taken?(@board, index)
   end
-  
-  def check(board, token='X')
+
+  def check(token='X')
     return state = WIN_COMBINATIONS.detect do |one_state|
-      one_state.all? { |i| board[i] == token}
+      one_state.all? { |i| @board[i] == token}
     end
   end
 
-  def won?(board)
-    x_state = check(board, 'X')
-    o_state = check(board, 'O')
+  def won?
+    x_state = check('X')
+    o_state = check('O')
     if x_state != nil
       return x_state
     elsif o_state != nil
@@ -64,8 +64,8 @@ class TicTacToe
     return false
   end
 
-  def full?(board)
-    empty = board.detect do |cell|
+  def full?
+    empty = @board.detect do |cell|
       cell == " " || cell == nil
     end
     if empty == nil
@@ -74,42 +74,42 @@ class TicTacToe
     false
   end
 
-  def draw?(board)
-    if won?(board)
+  def draw?
+    if won?
       return false
-    elsif full?(board)
+    elsif full?
       return true
     end
     false
   end
 
-  def over?(board)
-    if won?(board)
+  def over?
+    if won?
       return true
-    elsif draw?(board)
+    elsif draw?
       return true
     end
     false
   end
 
-  def winner(board)
-    if check(board, 'X')
+  def winner
+    if check('X')
       return 'X'
-    elsif check(board, 'O')
+    elsif check('O')
       return 'O'
     end
     nil
   end
 
-  def turn(board)
+  def turn
     puts "Please enter 1-9:"
     input = gets.strip
     index = input_to_index(input)
-    if valid_move?(board, index)
-      move(board, index, current_player(board))
-      display_board(board)
+    if valid_move?(index)
+      move(index, current_player
+      display_board
     else
-      turn(board)
+      turn
     end
   end
 end
