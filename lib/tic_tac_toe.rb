@@ -83,14 +83,14 @@ class TicTacToe
     false
   end
 
-def winner(board)
-  if check(board, 'X')
-    return 'X'
-  elsif check(board, 'O')
-    return 'O'
+  def winner(board)
+    if check(board, 'X')
+      return 'X'
+    elsif check(board, 'O')
+      return 'O'
+    end
+    nil
   end
-  nil
-end
 
 def turn(board)
   puts "Please enter 1-9:"
