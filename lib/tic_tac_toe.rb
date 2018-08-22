@@ -44,44 +44,44 @@ class TicTacToe
     end
   end
 
-def won?(board)
-  x_state = check(board, 'X')
-  o_state = check(board, 'O')
-  if x_state != nil
-    return x_state
-  elsif o_state != nil
-    return o_state
-  end
-  return false
-end
-
-def full?(board)
-  empty = board.detect do |cell|
-    cell == " " || cell == nil
-  end
-  if empty == nil
-    return true
-  end
-  false
-end
-
-def draw?(board)
-  if won?(board)
+  def won?(board)
+    x_state = check(board, 'X')
+    o_state = check(board, 'O')
+    if x_state != nil
+      return x_state
+    elsif o_state != nil
+      return o_state
+    end
     return false
-  elsif full?(board)
-    return true
   end
-  false
-end
 
-def over?(board)
-  if won?(board)
-    return true
-  elsif draw?(board)
-    return true
+  def full?(board)
+    empty = board.detect do |cell|
+      cell == " " || cell == nil
+    end
+    if empty == nil
+      return true
+    end
+    false
   end
-  false
-end
+
+  def draw?(board)
+    if won?(board)
+      return false
+    elsif full?(board)
+      return true
+    end
+    false
+  end
+
+  def over?(board)
+    if won?(board)
+      return true
+    elsif draw?(board)
+      return true
+    end
+    false
+  end
 
 def winner(board)
   if check(board, 'X')
